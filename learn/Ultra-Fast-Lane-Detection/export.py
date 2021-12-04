@@ -23,7 +23,7 @@ net = parsingNet(pretrained = False,backbone='18', cls_dim = (griding_num+1,cls_
                 use_aux=False)
 
 # Change test_model where your model stored.
-test_model = '/data/Models/UltraFastLaneDetection/culane_18.pth'
+test_model = '/Data/Models/UltraFastLaneDetection/culane_18.pth'
 
 #state_dict = torch.load(test_model, map_location='cpu')['model'] # CPU
 state_dict = torch.load(test_model, map_location='cuda')['model'] # CUDA

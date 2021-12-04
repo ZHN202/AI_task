@@ -134,7 +134,7 @@ def test_theoretical():
 
 
 if __name__ == "__main__":
-    ###captrue data from camera or video
+    ###captrue Data from camera or video
     #cap = cv2.VideoCapture("video.mp4") #uncommen to activate a video input
     cap = cv2.VideoCapture(0) #uncommen to activate a camera imput
     #resize(480, 640) #ucommen to change input size
