@@ -28,8 +28,11 @@ class SoftmaxFocalLoss(nn.Module):
         super(SoftmaxFocalLoss, self).__init__()
         self.gamma = gamma
         self.nll = nn.NLLLoss(ignore_index=ignore_lb)
+        #self.nll = nn.MSELoss()
+
 
     def forward(self, logits, labels):
+
         scores = F.softmax(logits, dim=1)
         factor = torch.pow(1.-scores, self.gamma)
         log_score = F.log_softmax(logits, dim=1)

@@ -128,39 +128,39 @@ def all_gather(data):
 
     return data_list
 
-
-from torch.utils.tensorboard import SummaryWriter
-
-
-class DistSummaryWriter(SummaryWriter):
-    def __init__(self, *args, **kwargs):
-        if can_log():
-            super(DistSummaryWriter, self).__init__(*args, **kwargs)
-
-    def add_scalar(self, *args, **kwargs):
-        if can_log():
-            super(DistSummaryWriter, self).add_scalar(*args, **kwargs)
-
-    def add_figure(self, *args, **kwargs):
-        if can_log():
-            super(DistSummaryWriter, self).add_figure(*args, **kwargs)
-
-    def add_graph(self, *args, **kwargs):
-        if can_log():
-            super(DistSummaryWriter, self).add_graph(*args, **kwargs)
-
-    def add_histogram(self, *args, **kwargs):
-        if can_log():
-            super(DistSummaryWriter, self).add_histogram(*args, **kwargs)
-    
-    def add_image(self, *args, **kwargs):
-        if can_log():
-            super(DistSummaryWriter, self).add_image(*args, **kwargs)
-
-    def close(self):
-        if can_log():
-            super(DistSummaryWriter, self).close()
-
+#
+# from torch.utils.tensorboard import SummaryWriter
+#
+#
+# class DistSummaryWriter(SummaryWriter):
+#     def __init__(self, *args, **kwargs):
+#         if can_log():
+#             super(DistSummaryWriter, self).__init__(*args, **kwargs)
+#
+#     def add_scalar(self, *args, **kwargs):
+#         if can_log():
+#             super(DistSummaryWriter, self).add_scalar(*args, **kwargs)
+#
+#     def add_figure(self, *args, **kwargs):
+#         if can_log():
+#             super(DistSummaryWriter, self).add_figure(*args, **kwargs)
+#
+#     def add_graph(self, *args, **kwargs):
+#         if can_log():
+#             super(DistSummaryWriter, self).add_graph(*args, **kwargs)
+#
+#     def add_histogram(self, *args, **kwargs):
+#         if can_log():
+#             super(DistSummaryWriter, self).add_histogram(*args, **kwargs)
+#
+#     def add_image(self, *args, **kwargs):
+#         if can_log():
+#             super(DistSummaryWriter, self).add_image(*args, **kwargs)
+#
+#     def close(self):
+#         if can_log():
+#             super(DistSummaryWriter, self).close()
+#
 
 import tqdm
 

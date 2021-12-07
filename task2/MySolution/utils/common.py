@@ -1,6 +1,6 @@
 import os, argparse
-from dist_utils import is_main_process, dist_print, DistSummaryWriter
-from config import Config
+from utils.dist_utils import is_main_process, dist_print
+
 import torch
 import time
 
@@ -33,7 +33,7 @@ def str2bool(v):
 #     parser.add_argument('--warmup', default = None, type = str)
 #     parser.add_argument('--warmup_iters', default = None, type = int)
 #     parser.add_argument('--backbone', default = None, type = str)
-#     parser.add_argument('--griding_num', default = None, type = int)
+#     parser.add_argument('--mgriding_nu', default = None, type = int)
 #     parser.add_argument('--use_aux', default = None, type = str2bool)
 #     parser.add_argument('--sim_loss_w', default = None, type = float)
 #     parser.add_argument('--shp_loss_w', default = None, type = float)
@@ -63,7 +63,7 @@ def str2bool(v):
 #     return args, cfg
 
 
-def save_model(net, optimizer, epoch,save_path, distributed):
+def save_model(net, optimizer, epoch,save_path):
     if is_main_process():
         model_state_dict = net.state_dict()
         state = {'model': model_state_dict, 'optimizer': optimizer.state_dict()}
@@ -99,14 +99,14 @@ def cp_projects(auto_backup, to_path):
 
 
 
-
-import datetime, os
-
-def get_logger(work_dir, cfg):
-    logger = DistSummaryWriter(work_dir)
-    config_txt = os.path.join(work_dir, 'cfg.txt')
-    if is_main_process():
-        with open(config_txt, 'w') as fp:
-            fp.write(str(cfg))
-
-    return logger
+#
+# import datetime, os
+#
+# def get_logger(work_dir, cfg):
+#     logger = DistSummaryWriter(work_dir)
+#     config_txt = os.path.join(work_dir, 'cfg.txt')
+#     if is_main_process():
+#         with open(config_txt, 'w') as fp:
+#             fp.write(str(cfg))
+#
+#     return logger

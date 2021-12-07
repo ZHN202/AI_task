@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from backbone import resnet
+from Model.backbone import resnet
 import numpy as np
 
 
@@ -20,16 +20,18 @@ class conv_bn_relu(torch.nn.Module):
 
 
 class parsingNet(torch.nn.Module):
-    def __init__(self, size=(288, 800), pretrained=True, use_aux=False):
+    def __init__(self, size=(288, 800), pretrained=True,cls_dim = (101,18, 2), use_aux=False):
         super(parsingNet, self).__init__()
 
         self.size = size
         self.w = size[0]
         self.h = size[1]
-        self.cls_dim = (37, 10, 2)  # cls_dim  # (num_gridding, num_cls_per_lane, num_of_lanes)
+        #self.cls_dim = (37, 10, 2)  # cls_dim  # (num_gridding, num_cls_per_lane, num_of_lanes)
+        self.cls_dim = cls_dim
         # num_cls_per_lane is the number of row anchors
         self.use_aux = use_aux
-        self.total_dim = np.prod((37, 10, 2))
+        #self.total_dim = np.prod((37, 10, 2))
+        self.total_dim = np.prod(cls_dim)
 
         # input : nchw,
         # output: (w+1) * sample_rows * 4
