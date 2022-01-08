@@ -5,10 +5,12 @@ import numpy as np
 
 
 class conv_bn_relu(torch.nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, bias=False):
+    def __init__(self, in_channels, out_channels, kernel_size,
+                 stride=1, padding=0, dilation=1, bias=False):
         super(conv_bn_relu, self).__init__()
         self.conv = nn.Conv2d(in_channels, out_channels, kernel_size,
-                              stride=stride, padding=padding, dilation=dilation, bias=bias)
+                              stride=stride, padding=padding,
+                              dilation=dilation, bias=bias)
         self.bn = nn.BatchNorm2d(out_channels)
         self.relu = nn.ReLU()
 
@@ -20,7 +22,8 @@ class conv_bn_relu(torch.nn.Module):
 
 
 class parsingNet(torch.nn.Module):
-    def __init__(self, size=(288, 800), pretrained=True,cls_dim = (101,18, 2), use_aux=False):
+    def __init__(self, size=(288, 800), pretrained=True,
+                 cls_dim = (101,18, 2), use_aux=False):
         super(parsingNet, self).__init__()
 
         self.size = size
@@ -61,7 +64,8 @@ class parsingNet(torch.nn.Module):
                 torch.nn.Conv2d(128, 3, 1)
                 # output : n, num_of_lanes+1, h, w
             )
-            initialize_weights(self.aux_header2, self.aux_header3, self.aux_header4, self.aux_combine)
+            initialize_weights(self.aux_header2, self.aux_header3,
+                               self.aux_header4, self.aux_combine)
 
         self.cls = torch.nn.Sequential(
             torch.nn.Linear(1800, 2048),
@@ -80,6 +84,7 @@ class parsingNet(torch.nn.Module):
         # n c h w - > n 2048 sh sw
         # -> n 2048
         x2, x3, fea = self.model(x)
+
         if self.use_aux:
             x2 = self.aux_header2(x2)
             x3 = self.aux_header3(x3)

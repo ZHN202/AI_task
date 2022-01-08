@@ -1,6 +1,6 @@
-import os, argparse
-from utils.dist_utils import is_main_process, dist_print, DistSummaryWriter
-from utils.config import Config
+import argparse
+from LaneDetection.utils import is_main_process, dist_print, DistSummaryWriter
+from LaneDetection.utils.config import Config
 import torch
 import time
 

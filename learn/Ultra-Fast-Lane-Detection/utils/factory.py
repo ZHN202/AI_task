@@ -1,6 +1,5 @@
-from utils.loss import SoftmaxFocalLoss, ParsingRelationLoss, ParsingRelationDis
-from utils.metrics import MultiLabelAcc, AccTopk, Metric_mIoU
-from utils.dist_utils import DistSummaryWriter
+from LaneDetection.utils import SoftmaxFocalLoss, ParsingRelationLoss, ParsingRelationDis
+from LaneDetection.utils.metrics import MultiLabelAcc, AccTopk, Metric_mIoU
 
 import torch
 

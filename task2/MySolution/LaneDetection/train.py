@@ -19,12 +19,13 @@ def inference(net, data_label):
     img, cls_label, seg_label = data_label
     img, cls_label, seg_label = img.cuda(), cls_label.long().cuda(), seg_label.long().cuda()
     cls_out, seg_out = net(img)
-    return {'cls_out': cls_out, 'cls_label': cls_label, 'seg_out': seg_out, 'seg_label': seg_label}
+    return {'cls_out': cls_out, 'cls_label': cls_label,
+            'seg_out': seg_out, 'seg_label': seg_label}
 
 
 def calc_loss(loss_dict, results, global_step):
     loss = 0
-
+    f=open(r'D:\AI_task\task2\MySolution\LaneDetection\output\loss.txt','w+')
     for i in range(len(loss_dict['name'])):
 
         data_src = loss_dict['data_src'][i]
@@ -33,10 +34,12 @@ def calc_loss(loss_dict, results, global_step):
 
         loss_cur = loss_dict['op'][i](*datas)
 
-        if global_step % 2 == 0:
-            print('loss=' + loss_dict['name'][i] + str(loss_cur) + " " + str(global_step))
+
+        f.write('loss=' + loss_dict['name'][i]
+                  + str(loss_cur) + " " + str(global_step)+'\n')
 
         loss += loss_cur * loss_dict['weight'][i]
+    f.write('loss:    '+str(loss)+'\n')
     return loss
 
 
@@ -59,29 +62,33 @@ def train(net, data_loader, loss_dict, optimizer, scheduler, epoch):
         scheduler.step(global_step)
         t_net_1 = time.time()
 
+
         results['seg_out'] = torch.argmax(results['seg_out'], dim=1)
 
         print("epoch=" + str(epoch))
         print('lr=' + str(optimizer.param_groups[0]['lr']))
         print('loss=%.3f,data_time=%.3f,fnet_time=%.3f' % (
-        float(loss), float(t_data_1 - t_data_0), float(t_net_1 - t_net_0)))
+        float(loss), float(t_data_1 - t_data_0),
+        float(t_net_1 - t_net_0)))
         t_data_0 = time.time()
 
 
 #######################################################
 use_aux = True
-data_root = r'D:\AI_task\task2\MySolution\Data'  # 数据集路径
-griding_num = 200  # 网格数
+data_root = r'D:/AI_task/task2/MySolution/LaneDetection/Data/'  # 数据集路径
+griding_num = 100  # 网格数
 learning_rate = 4e-4
 weight_decay = 1e-4
 momentum = 0.9
 gamma = 0.1
 warmup = 'linear'
 warmup_iters = 100
-epochs = 30
+epochs = 500
 batch_size=2
+model = r'D:\AI_task\task2\MySolul\model\tusimple_18.pth'
+test_model = r'D:\AI_task\task2\MySolution\LaneDetection\Model\model\ep499.pth'
 num_lanes=2
-modelPath=r'D:\AI_task\task2\MySolution\Model\model'
+outModelPath=r'D:\AI_task\task2\MySolution\LaneDetection\Model\model'
 #######################################################
 
 
@@ -89,12 +96,15 @@ if __name__ == "__main__":
     torch.backends.cudnn.benchmark = True
 
     distributed = False
-    dist_print(datetime.datetime.now().strftime('[%Y/%m/%d %H:%M:%S]') + ' start training...')
+    dist_print(datetime.datetime.now().strftime(
+        '[%Y/%m/%d %H:%M:%S]') + ' start training...')
 
-    train_loader, cls_num_per_lane = get_train_loader(batch_size, data_root, griding_num)
+    train_loader, cls_num_per_lane = get_train_loader(
+        batch_size, data_root, griding_num)
 
-    net = parsingNet(pretrained=True, use_aux=True,cls_dim = (griding_num+1,cls_num_per_lane, num_lanes)).cuda()
-
+    net = parsingNet(pretrained=False, use_aux=True,
+                     cls_dim = (griding_num+1,cls_num_per_lane, num_lanes)).cuda()
+    net.load_state_dict(torch.load(test_model), strict=False)
     training_params = filter(lambda p: p.requires_grad, net.parameters())
     optimizer = torch.optim.Adam(training_params, lr=learning_rate, weight_decay=weight_decay)
     scheduler = CosineAnnealingLR(optimizer, epochs * len(train_loader), eta_min=0, warmup=warmup,
@@ -107,4 +117,6 @@ if __name__ == "__main__":
     for epoch in range(epochs):
         train(net, train_loader, loss_dict, optimizer, scheduler,epoch)
 
-        save_model(net, optimizer, epoch, modelPath)
+        if (epoch+1)in [100,50,150,350]:
+            save_model(net, optimizer, epoch, outModelPath)
+

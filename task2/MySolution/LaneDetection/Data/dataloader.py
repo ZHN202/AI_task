@@ -1,9 +1,8 @@
 import torch, os
-import numpy as np
 
 import torchvision.transforms as transforms
 import Data.mytransforms as mytransforms
-from Data.constant import  culane_row_anchor,tusimple_row_anchor
+from Data.constant import  culane_row_anchor
 from Data.dataset import LaneDataset
 
 
@@ -35,12 +34,12 @@ def get_train_loader(batch_size, data_root, griding_num):
     #                                row_anchor=culane_row_anchor,
     #                                griding_num=griding_num, num_lanes=2)
     train_dataset = LaneDataset(data_root,
-                                   os.path.join(data_root, 'list/trainList.txt'),
-                                   img_transform=img_transform, target_transform=target_transform,
-                                   segment_transform=segment_transform,
-                                   row_anchor=tusimple_row_anchor,
-                                   griding_num=griding_num, num_lanes=2)
-    cls_num_per_lane = 56
+                                os.path.join(data_root, 'list/trainList.txt'),
+                                img_transform=img_transform, target_transform=target_transform,
+                                segment_transform=segment_transform,
+                                row_anchor=culane_row_anchor,
+                                griding_num=griding_num, num_lanes=2)
+    cls_num_per_lane = 18
 
 
     # if distributed:

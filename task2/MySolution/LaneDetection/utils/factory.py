@@ -31,11 +31,13 @@ def get_scheduler(optimizer, cfg, iters_per_epoch):
 
 def get_loss_dict():
     loss_dict = {
-        'name': ['cls_loss', 'relation_loss', 'aux_loss', 'relation_dis'],
-        'op': [SoftmaxFocalLoss(2), ParsingRelationLoss(), torch.nn.CrossEntropyLoss(), ParsingRelationDis()],
-        #'op': [torch.nn.MSELoss(), ParsingRelationLoss(), torch.nn.CrossEntropyLoss(), ParsingRelationDis()],
-        'weight': [1.0, 0.2, 0.5, 1.0],
-        'data_src': [('cls_out', 'cls_label'), ('cls_out',), ('seg_out', 'seg_label'), ('cls_out',)]
+        'name': ['cls_loss', 'relation_loss',
+                 'aux_loss', 'relation_dis'],
+        'op': [SoftmaxFocalLoss(2), ParsingRelationLoss(),
+               torch.nn.CrossEntropyLoss(), ParsingRelationDis()],
+        'weight': [1.0, 0.5, 1.0, 0.2],
+        'data_src': [('cls_out', 'cls_label'), ('cls_out',),
+                     ('seg_out', 'seg_label'), ('cls_out',)]
     }
 
     return loss_dict

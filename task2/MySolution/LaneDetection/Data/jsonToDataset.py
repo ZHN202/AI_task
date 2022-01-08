@@ -16,7 +16,7 @@ from labelme import utils
 
 import base64
 
-
+# 控制台运行，输入python jsonToDataset.py path
 # 批量转换代码
 
 def main():

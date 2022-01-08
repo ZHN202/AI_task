@@ -1,7 +1,7 @@
 
 from data.dataloader import get_test_loader
-from evaluation.tusimple.lane import LaneEval
-from utils.dist_utils import is_main_process, dist_print, get_rank, get_world_size, dist_tqdm, synchronize
+from LaneDetection.evaluation import LaneEval
+from LaneDetection.utils import is_main_process, dist_print, get_rank, get_world_size, dist_tqdm, synchronize
 import os, json, torch, scipy
 import numpy as np
 import platform

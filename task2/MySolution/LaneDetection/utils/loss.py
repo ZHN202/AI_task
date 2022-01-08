@@ -28,7 +28,7 @@ class SoftmaxFocalLoss(nn.Module):
         super(SoftmaxFocalLoss, self).__init__()
         self.gamma = gamma
         self.nll = nn.NLLLoss(ignore_index=ignore_lb)
-        #self.nll = nn.MSELoss()
+
 
 
     def forward(self, logits, labels):

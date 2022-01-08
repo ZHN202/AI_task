@@ -80,7 +80,8 @@ def cp_projects(auto_backup, to_path):
             ign = fp.read()
         ign += '\n.git'
         spec = pathspec.PathSpec.from_lines(pathspec.patterns.GitWildMatchPattern, ign.splitlines())
-        all_files = {os.path.join(root,name) for root,dirs,files in os.walk('./') for name in files}
+        all_files = {os.path.join(root,name) for root,dirs,files in os.walk(
+            '../../../../learn/Ultra-Fast-Lane-Detection/utils/') for name in files}
         matches = spec.match_files(all_files)
         matches = set(matches)
         to_cp_files = all_files - matches
