@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from Model.backbone import resnet
+from LaneDetection.Model.backbone import resnet
 import numpy as np
 
 

@@ -83,10 +83,10 @@ momentum = 0.9
 gamma = 0.1
 warmup = 'linear'
 warmup_iters = 100
-epochs = 500
+epochs = 1000
 batch_size=2
 model = r'D:\AI_task\task2\MySolul\model\tusimple_18.pth'
-test_model = r'D:\AI_task\task2\MySolution\LaneDetection\Model\model\ep499.pth'
+test_model = r'D:\AI_task\task2\MySolution\LaneDetection\Model\model\ep349.pth'
 num_lanes=2
 outModelPath=r'D:\AI_task\task2\MySolution\LaneDetection\Model\model'
 #######################################################
@@ -117,6 +117,6 @@ if __name__ == "__main__":
     for epoch in range(epochs):
         train(net, train_loader, loss_dict, optimizer, scheduler,epoch)
 
-        if (epoch+1)in [100,50,150,350]:
+        if (epoch+1)in [500,600,800,1000]:
             save_model(net, optimizer, epoch, outModelPath)
 

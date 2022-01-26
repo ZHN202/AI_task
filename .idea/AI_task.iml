@@ -3,10 +3,10 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/learn/Ultra-Fast-Lane-Detection" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/task2/MySolution/LabelDetection" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/task2/MySolution/LaneDetection" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/task2/MySolution" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/task2/yolov5-master" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.6 (pytorch) (7)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (pytorch1.10)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">

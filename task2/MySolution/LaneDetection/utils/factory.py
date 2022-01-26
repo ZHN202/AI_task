@@ -35,7 +35,7 @@ def get_loss_dict():
                  'aux_loss', 'relation_dis'],
         'op': [SoftmaxFocalLoss(2), ParsingRelationLoss(),
                torch.nn.CrossEntropyLoss(), ParsingRelationDis()],
-        'weight': [1.0, 0.5, 1.0, 0.2],
+        'weight': [1.0, 0.8, 1.0, 0.5],
         'data_src': [('cls_out', 'cls_label'), ('cls_out',),
                      ('seg_out', 'seg_label'), ('cls_out',)]
     }
